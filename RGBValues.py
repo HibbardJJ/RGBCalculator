@@ -281,39 +281,39 @@ for element in dic:
             m+=1
         ws.add_chart(chart, "J52")
         m=0
-    elif element == 'Blue_Start_:
-        blue_column_ecell_list.append(dic[element])
+    elif element == 'Blue_Start_E' or element == 'Blue_End_E':
+        blue_column_startend_ecell_list.append(dic[element])
         chart = ScatterChart()
         chart.title = 'Epidermal Cell, Blue Pixels'
         chart.style = 13
         chart.x_axis.title = 'Pixel Bin'
         chart.y_axis.title = 'Intensity'
         xvalues = Reference(ws, min_col=1, min_row=5, max_row=261)
-        for i in blue_column_ecell_list:
+        for i in blue_column_startend_ecell_list:
             values = Reference(ws, min_col=i, min_row=4, max_row=261)
             series = Series(values, xvalues, title_from_data=True)
             chart.series.append(series)
             lineProp = drawing.line.LineProperties(solidFill = drawing.colors.ColorChoice(prstClr = color_list[m]))
             series.graphicalProperties.line = lineProp
             m+=1
-        ws.add_chart(chart, "S10")
+        ws.add_chart(chart, "S38")
         m=0
-    elif element.startswith('B') and element.endswith('G'):
-        blue_column_gcell_list.append(dic[element])
+    elif element == 'Blue_Start_G' or element == 'Blue_End_G':
+        blue_column_startend_gcell_list.append(dic[element])
         chart = ScatterChart()
         chart.title = 'Guard Cell, Blue Pixels'
         chart.style = 13
         chart.x_axis.title = 'Pixel Bin'
         chart.y_axis.title = 'Intensity'
         xvalues = Reference(ws, min_col=1, min_row=5, max_row=261)
-        for i in blue_column_gcell_list:
+        for i in blue_column_startend_gcell_list:
             values = Reference(ws, min_col=i, min_row=4, max_row=261)
             series = Series(values, xvalues, title_from_data=True)
             chart.series.append(series)
             lineProp = drawing.line.LineProperties(solidFill = drawing.colors.ColorChoice(prstClr = color_list[m]))
             series.graphicalProperties.line = lineProp
             m+=1
-        ws.add_chart(chart, "S24")
+        ws.add_chart(chart, "S52")
         m=0
 '''
 
