@@ -4,17 +4,17 @@ Spyder Editor
 
 This is a temporary script file.
 """
-import matplotlib.pyplot as plot
+
 import os
-#os.chdir('C:\\Users\\Undergrunt\\Box\\Josh data\\PT RGB\\04-20-18')
 from PIL import Image
 from openpyxl.chart import (
     ScatterChart,
     Reference,
     Series,
+
 )
 from openpyxl import *
-#from openpyxl import load_workbook
+
 
 
 
@@ -27,7 +27,7 @@ image_list = os.listdir(experiment_date)
 
 
 
-workbook = load_workbook('C:\\Users\\Undergrunt\\Box\\Josh data\\PT RGB\\Test.xlsx')
+workbook = load_workbook('C:\\Users\\Undergrunt\\Box\\Josh data\\Purple Trad RGB Graphs.xlsx')
 ws = workbook.create_sheet(experiment_date)
 ws.cell(row = 1, column = 1).value = 'Purple Trad Experiments'
 ws.cell(row = 3, column = 1).value = 'Date'
@@ -69,28 +69,7 @@ for image in image_list:
     k+=3
     i+=1
 
-'''im_NoE_E = Image.open('NoE E.jpg', 'r')
-im_NoE_G = Image.open('NoE G.jpg', 'r')
-im_HPU_E = Image.open('HPU E.jpg', 'r')
-im_HPU_G = Image.open('HPU G.jpg', 'r')
-im_HPL_E = Image.open('HPL E.jpg', 'r')
-im_HPL_G = Image.open('HPL G.jpg', 'r')
 
-red, green, blue = im.split()
-#width, height = im.size
-#pixel_values = list(im.getdata())
-#counts = im.histogram()
-
-red_counts = red.histogram()
-green_counts = green.histogram()
-blue_counts = blue.histogram()'''
-'''plot.figure(1)
-plot.plot(red_counts)
-plot.figure(2)
-plot.plot(green_counts)
-plot.figure(3)
-plot.plot(blue_counts)
-plot.show()'''
 
 red_column_gcell_list = []
 red_column_ecell_list = []
@@ -111,7 +90,7 @@ m=0
 color_list = ['red','green','blue']
 
 for element in dic:
-    if element.startswith('R') and element.endswith('G'):
+    if element.startswith('R') and element.endswith('G') and 'Start' not in element and 'End' not in element:
         red_column_gcell_list.append(dic[element])
         chart = ScatterChart()
         chart.title = 'Guard Cell, Red Pixels'
@@ -128,7 +107,7 @@ for element in dic:
             m+=1
         ws.add_chart(chart, "A10")
         m=0
-    elif element.startswith('R') and element.endswith('E'):
+    elif element.startswith('R') and element.endswith('E') and 'Start' not in element and 'End' not in element:
         red_column_ecell_list.append(dic[element])
         chart = ScatterChart()
         chart.title = 'Epidermal Cell, Red Pixels'
@@ -145,7 +124,7 @@ for element in dic:
             m+=1
         ws.add_chart(chart, "A24")
         m=0
-    elif element.startswith('G') and element.endswith('E'):
+    elif element.startswith('G') and element.endswith('E') and 'Start' not in element and 'End' not in element:
         green_column_ecell_list.append(dic[element])
         chart = ScatterChart()
         chart.title = 'Epidermal Cell, Green Pixels'
@@ -160,9 +139,9 @@ for element in dic:
             lineProp = drawing.line.LineProperties(solidFill = drawing.colors.ColorChoice(prstClr = color_list[m]))
             series.graphicalProperties.line = lineProp
             m+=1
-        ws.add_chart(chart, "J10")
+        ws.add_chart(chart, "J24")
         m=0
-    elif element.startswith('G') and element.endswith('G'):
+    elif element.startswith('G') and element.endswith('G') and 'Start' not in element and 'End' not in element:
         green_column_gcell_list.append(dic[element])
         chart = ScatterChart()
         chart.title = 'Guard Cell, Green Pixels'
@@ -177,9 +156,9 @@ for element in dic:
             lineProp = drawing.line.LineProperties(solidFill = drawing.colors.ColorChoice(prstClr = color_list[m]))
             series.graphicalProperties.line = lineProp
             m+=1
-        ws.add_chart(chart, "J24")
+        ws.add_chart(chart, "J10")
         m=0
-    elif element.startswith('B') and element.endswith('E'):
+    elif element.startswith('B') and element.endswith('E') and 'Start' not in element and 'End' not in element:
         blue_column_ecell_list.append(dic[element])
         chart = ScatterChart()
         chart.title = 'Epidermal Cell, Blue Pixels'
@@ -194,9 +173,9 @@ for element in dic:
             lineProp = drawing.line.LineProperties(solidFill = drawing.colors.ColorChoice(prstClr = color_list[m]))
             series.graphicalProperties.line = lineProp
             m+=1
-        ws.add_chart(chart, "S10")
+        ws.add_chart(chart, "S24")
         m=0
-    elif element.startswith('B') and element.endswith('G'):
+    elif element.startswith('B') and element.endswith('G') and 'Start' not in element and 'End' not in element:
         blue_column_gcell_list.append(dic[element])
         chart = ScatterChart()
         chart.title = 'Guard Cell, Blue Pixels'
@@ -211,7 +190,7 @@ for element in dic:
             lineProp = drawing.line.LineProperties(solidFill = drawing.colors.ColorChoice(prstClr = color_list[m]))
             series.graphicalProperties.line = lineProp
             m+=1
-        ws.add_chart(chart, "S24")
+        ws.add_chart(chart, "S10")
         m=0
     if element == 'Red_Start_G' or element == 'Red_End_G':
         red_column_startend_gcell_list.append(dic[element])
@@ -248,7 +227,7 @@ for element in dic:
         ws.add_chart(chart, "A52")
         m=0
     elif element == 'Green_Start_E' or element == 'Green_End_E':
-        green_column__startend_ecell_list.append(dic[element])
+        green_column_startend_ecell_list.append(dic[element])
         chart = ScatterChart()
         chart.title = 'Epidermal Cell, Green Pixels'
         chart.style = 13
@@ -262,7 +241,7 @@ for element in dic:
             lineProp = drawing.line.LineProperties(solidFill = drawing.colors.ColorChoice(prstClr = color_list[m]))
             series.graphicalProperties.line = lineProp
             m+=1
-        ws.add_chart(chart, "J38")
+        ws.add_chart(chart, "J52")
         m=0
     elif element == 'Green_Start_G' or element == 'Green_End_G':
         green_column_startend_gcell_list.append(dic[element])
@@ -279,7 +258,7 @@ for element in dic:
             lineProp = drawing.line.LineProperties(solidFill = drawing.colors.ColorChoice(prstClr = color_list[m]))
             series.graphicalProperties.line = lineProp
             m+=1
-        ws.add_chart(chart, "J52")
+        ws.add_chart(chart, "J38")
         m=0
     elif element == 'Blue_Start_E' or element == 'Blue_End_E':
         blue_column_startend_ecell_list.append(dic[element])
@@ -296,7 +275,7 @@ for element in dic:
             lineProp = drawing.line.LineProperties(solidFill = drawing.colors.ColorChoice(prstClr = color_list[m]))
             series.graphicalProperties.line = lineProp
             m+=1
-        ws.add_chart(chart, "S38")
+        ws.add_chart(chart, "S52")
         m=0
     elif element == 'Blue_Start_G' or element == 'Blue_End_G':
         blue_column_startend_gcell_list.append(dic[element])
@@ -313,27 +292,8 @@ for element in dic:
             lineProp = drawing.line.LineProperties(solidFill = drawing.colors.ColorChoice(prstClr = color_list[m]))
             series.graphicalProperties.line = lineProp
             m+=1
-        ws.add_chart(chart, "S52")
+        ws.add_chart(chart, "S38")
         m=0
-'''
-
-chart = ScatterChart()
-chart.title = "Red"
-chart.style = 13
-chart.x_axis.title = 'Pixel Bin'
-chart.y_axis.title = 'Intensity'
-
-color_list = ['red','green','blue']
-
-xvalues = Reference(ws, min_col=1, min_row=1, max_row=256)
-for i in range(2, 5):
-    values = Reference(ws, min_col=i, min_row=1, max_row=256)
-    series = Series(values, xvalues, title_from_data=True)
-    chart.series.append(series)
-    lineProp = drawing.line.LineProperties(solidFill = drawing.colors.ColorChoice(prstClr = color_list[i-2]))
-    series.graphicalProperties.line = lineProp
-    
-ws.add_chart(chart, "A10")'''
 
 
-workbook.save(filename='Test.xlsx')
+workbook.save(filename = 'C:\\Users\\Undergrunt\\Box\\Josh data\\Purple Trad RGB Graphs.xlsx')
